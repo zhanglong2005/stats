@@ -1,7 +1,7 @@
 package storage
 
 import (
-	"github.com/bborbe/stats/entry"
+	"github.com/bborbe/stats/per_hour/entry"
 	"github.com/jinzhu/gorm"
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -14,7 +14,7 @@ type Storage interface {
 }
 
 type storage struct {
-	db     *gorm.DB
+	db      *gorm.DB
 	dbpath  string
 	logmode bool
 }

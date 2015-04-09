@@ -6,14 +6,14 @@ import (
 
 	"flag"
 
-
-	"github.com/bborbe/log"
-	per_hour_entry "github.com/bborbe/stats/entry"
-	per_hour_storage "github.com/bborbe/stats/storage"
-	"github.com/bborbe/stats"
-	io_util "github.com/bborbe/io/util"
-	"time"
 	"strconv"
+	"time"
+
+	io_util "github.com/bborbe/io/util"
+	"github.com/bborbe/log"
+	"github.com/bborbe/stats/per_hour"
+	per_hour_entry "github.com/bborbe/stats/per_hour/entry"
+	per_hour_storage "github.com/bborbe/stats/per_hour/storage"
 )
 
 var logger = log.DefaultLogger
@@ -28,7 +28,7 @@ func main() {
 	defer logger.Close()
 	logLevelPtr := flag.String(PARAMETER_LOGLEVEL, log.INFO_STRING, "one of OFF,TRACE,DEBUG,INFO,WARN,ERROR")
 	valuePtr := flag.String(PARAMETER_VALUE, "", "value")
-	dbPathPtr := flag.String(PARAMETER_DB_PATH, stats.DEFAULT_DB_PATH, "path to database file")
+	dbPathPtr := flag.String(PARAMETER_DB_PATH, per_hour.DEFAULT_DB_PATH, "path to database file")
 	flag.Parse()
 	logger.SetLevelThreshold(log.LogStringToLevel(*logLevelPtr))
 	logger.Debugf("set log level to %s", *logLevelPtr)
@@ -42,7 +42,7 @@ func main() {
 	}
 }
 
-func do(writer io.Writer, dbPath string , valueString string) error {
+func do(writer io.Writer, dbPath string, valueString string) error {
 	var err error
 	dbPath, err = io_util.NormalizePath(dbPath)
 	if err != nil {
@@ -54,6 +54,6 @@ func do(writer io.Writer, dbPath string , valueString string) error {
 	}
 	storage := per_hour_storage.New(dbPath, false)
 	timestamp := time.Now().UnixNano()
-	entry := &per_hour_entry.Entry {Value: value, Timestamp:timestamp}
+	entry := &per_hour_entry.Entry{Value: value, Timestamp: timestamp}
 	return storage.CreateEntry(entry)
 }
