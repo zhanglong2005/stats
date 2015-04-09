@@ -1,17 +1,17 @@
-Per-Hour
+Stats
 ============
 
-    per_hour
+    stats
 
 Documentation
 -------------
 
-http://godoc.org/github.com/bborbe/per_hour
+http://godoc.org/github.com/bborbe/stats
 
 Continuous integration
 ----------------------
 
-http://jenkins.benjamin-borbe.de/job/Go-Per-Hour/
+http://jenkins.benjamin-borbe.de/job/Go-Stats/
 
 Copyright and license
 ---------------------

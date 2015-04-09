@@ -8,9 +8,9 @@ import (
 
 
 	"github.com/bborbe/log"
-	per_hour_entry "github.com/bborbe/per_hour/entry"
-	per_hour_storage "github.com/bborbe/per_hour/storage"
-	"github.com/bborbe/per_hour"
+	per_hour_entry "github.com/bborbe/stats/entry"
+	per_hour_storage "github.com/bborbe/stats/storage"
+	"github.com/bborbe/stats"
 	io_util "github.com/bborbe/io/util"
 	"fmt"
 	"sort"
@@ -27,7 +27,7 @@ const (
 func main() {
 	defer logger.Close()
 	logLevelPtr := flag.String(PARAMETER_LOGLEVEL, log.INFO_STRING, "one of OFF,TRACE,DEBUG,INFO,WARN,ERROR")
-	dbPathPtr := flag.String(PARAMETER_DB_PATH, per_hour.DEFAULT_DB_PATH, "path to database file")
+	dbPathPtr := flag.String(PARAMETER_DB_PATH, stats.DEFAULT_DB_PATH, "path to database file")
 	flag.Parse()
 	logger.SetLevelThreshold(log.LogStringToLevel(*logLevelPtr))
 	logger.Debugf("set log level to %s", *logLevelPtr)
@@ -60,8 +60,15 @@ func do(writer io.Writer, dbPath string) error {
 		hours := float64(a.Timestamp - b.Timestamp) / float64(time.Hour)
 		diff := float64(a.Value - b.Value) / hours
 		d := time.Unix(0, a.Timestamp)
-		fmt.Fprintf(writer, "%s %s\n", d.Format("2006-01-02 15:04:05"), fmt.Sprintf("%.2f", diff))
+		fmt.Fprintf(writer, "%s %s\n", d.Format("2006-01-02 15:04:05"), extend(fmt.Sprintf("%.2f", diff), 12))
 	}
 
 	return nil
+}
+
+func extend(value string, length int) string {
+	if (len(value) < length) {
+		return extend(" "+value, length)
+	}
+	return value
 }

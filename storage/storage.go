@@ -1,7 +1,7 @@
 package storage
 
 import (
-	"github.com/bborbe/per_hour/entry"
+	"github.com/bborbe/stats/entry"
 	"github.com/jinzhu/gorm"
 	_ "github.com/mattn/go-sqlite3"
 )
