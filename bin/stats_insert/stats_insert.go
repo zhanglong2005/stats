@@ -13,7 +13,7 @@ import (
 	"github.com/bborbe/log"
 	"github.com/bborbe/stats"
 	stats_entry "github.com/bborbe/stats/entry"
-	stats_storage "github.com/bborbe/stats/storage"
+	stats_entry_storage "github.com/bborbe/stats/entry/storage"
 )
 
 var logger = log.DefaultLogger
@@ -55,7 +55,7 @@ func do(writer io.Writer, dbPath string, valueString string) error {
 	if value, err = strconv.Atoi(valueString); err != nil {
 		return err
 	}
-	storage := stats_storage.New(dbPath, false)
+	storage := stats_entry_storage.New(dbPath, false)
 	timestamp := time.Now().UnixNano()
 	entry := &stats_entry.Entry{Value: value, Timestamp: timestamp}
 	return storage.CreateEntry(entry)

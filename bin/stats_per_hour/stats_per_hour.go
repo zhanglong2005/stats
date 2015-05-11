@@ -14,7 +14,7 @@ import (
 	"github.com/bborbe/log"
 	"github.com/bborbe/stats"
 	stats_entry "github.com/bborbe/stats/entry"
-	stats_storage "github.com/bborbe/stats/storage"
+	stats_entry_storage "github.com/bborbe/stats/entry/storage"
 )
 
 var logger = log.DefaultLogger
@@ -60,7 +60,7 @@ func readEntriesFromDb(dbPath string) ([]stats_entry.Entry, error) {
 	if err != nil {
 		return nil, err
 	}
-	storage := stats_storage.New(dbPath, false)
+	storage := stats_entry_storage.New(dbPath, false)
 	if entries, err = storage.FindEntrys(); err != nil {
 		return nil, err
 	}

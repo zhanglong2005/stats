@@ -1,4 +1,4 @@
-package insert
+package create
 
 import (
 	"testing"
@@ -9,7 +9,7 @@ import (
 )
 
 func TestImplementsHttpHandler(t *testing.T) {
-	r := New()
+	r := New(nil)
 	var i *http.Handler
 	err := AssertThat(r, Implements(i))
 	if err != nil {
