@@ -24,11 +24,14 @@ const (
 	PARAMETER_DB_PATH  = "db"
 )
 
+var (
+	logLevelPtr = flag.String(PARAMETER_LOGLEVEL, log.INFO_STRING, "one of OFF,TRACE,DEBUG,INFO,WARN,ERROR")
+	valuePtr    = flag.String(PARAMETER_VALUE, "", "value")
+	dbPathPtr   = flag.String(PARAMETER_DB_PATH, stats.DEFAULT_DB_PATH, "path to database file")
+)
+
 func main() {
 	defer logger.Close()
-	logLevelPtr := flag.String(PARAMETER_LOGLEVEL, log.INFO_STRING, "one of OFF,TRACE,DEBUG,INFO,WARN,ERROR")
-	valuePtr := flag.String(PARAMETER_VALUE, "", "value")
-	dbPathPtr := flag.String(PARAMETER_DB_PATH, stats.DEFAULT_DB_PATH, "path to database file")
 	flag.Parse()
 	logger.SetLevelThreshold(log.LogStringToLevel(*logLevelPtr))
 	logger.Debugf("set log level to %s", *logLevelPtr)

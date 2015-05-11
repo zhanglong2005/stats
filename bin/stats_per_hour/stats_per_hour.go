@@ -24,10 +24,13 @@ const (
 	PARAMETER_DB_PATH  = "db"
 )
 
+var (
+	logLevelPtr = flag.String(PARAMETER_LOGLEVEL, log.INFO_STRING, "one of OFF,TRACE,DEBUG,INFO,WARN,ERROR")
+	dbPathPtr   = flag.String(PARAMETER_DB_PATH, stats.DEFAULT_DB_PATH, "path to database file")
+)
+
 func main() {
 	defer logger.Close()
-	logLevelPtr := flag.String(PARAMETER_LOGLEVEL, log.INFO_STRING, "one of OFF,TRACE,DEBUG,INFO,WARN,ERROR")
-	dbPathPtr := flag.String(PARAMETER_DB_PATH, stats.DEFAULT_DB_PATH, "path to database file")
 	flag.Parse()
 	logger.SetLevelThreshold(log.LogStringToLevel(*logLevelPtr))
 	logger.Debugf("set log level to %s", *logLevelPtr)
@@ -69,8 +72,8 @@ func printEntries(writer io.Writer, entries []stats_entry.Entry) error {
 
 	for i := 0; i < len(entries)-1; i++ {
 		a := entries[i]
-		b := entries[i+1]
-		hourDiff := float64(a.Timestamp-b.Timestamp) / float64(time.Hour)
+		b := entries[i + 1]
+		hourDiff := float64(a.Timestamp - b.Timestamp) / float64(time.Hour)
 		valueDiff := a.Value - b.Value
 		diff := float64(valueDiff) / hourDiff
 		t := time.Unix(0, a.Timestamp)

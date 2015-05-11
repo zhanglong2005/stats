@@ -14,7 +14,7 @@ import (
 
 var logger = log.DefaultLogger
 
-func NewHandler(documentRoot string) http.Handler {
+func NewHandler(documentRoot string, dbPath string) http.Handler {
 	logger.Debugf("root: %s", documentRoot)
 	fileServer := cachingheader.NewCachingHeaderHandler(contenttype.NewContentTypeHandler(http.FileServer(http.Dir(documentRoot))))
 	handlerFinder := part.New("")
