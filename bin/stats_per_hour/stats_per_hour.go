@@ -72,8 +72,8 @@ func printEntries(writer io.Writer, entries []stats_entry.Entry) error {
 
 	for i := 0; i < len(entries)-1; i++ {
 		a := entries[i]
-		b := entries[i + 1]
-		hourDiff := float64(a.Timestamp - b.Timestamp) / float64(time.Hour)
+		b := entries[i+1]
+		hourDiff := float64(a.Timestamp-b.Timestamp) / float64(time.Hour)
 		valueDiff := a.Value - b.Value
 		diff := float64(valueDiff) / hourDiff
 		t := time.Unix(0, a.Timestamp)

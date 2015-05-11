@@ -3,7 +3,11 @@ package main
 import (
 	"flag"
 	"net/http"
+	"os"
 
+	"io"
+
+	io_util "github.com/bborbe/io/util"
 	"github.com/bborbe/log"
 	"github.com/bborbe/stats"
 	"github.com/bborbe/stats/handler"
@@ -26,7 +30,23 @@ var (
 func main() {
 	defer logger.Close()
 	flag.Parse()
-	gracehttp.Serve(createServer(*addressPtr, *documentRootPtr, *dbPathPtr))
+
+	writer := os.Stdout
+	err := do(writer, *addressPtr, *documentRootPtr, *dbPathPtr)
+	if err != nil {
+		logger.Fatal(err)
+		logger.Close()
+		os.Exit(1)
+	}
+}
+
+func do(writer io.Writer, address string, documentRoot string, dbPath string) error {
+	dbPath, err := io_util.NormalizePath(dbPath)
+	if err != nil {
+		return err
+	}
+	gracehttp.Serve(createServer(address, documentRoot, dbPath))
+	return nil
 }
 
 func createServer(address string, documentRoot string, dbPath string) *http.Server {
