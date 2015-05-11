@@ -6,6 +6,7 @@ import (
 )
 
 type service struct {
+	storage stats_entry_storage.Storage
 }
 
 type Service interface {
@@ -14,13 +15,19 @@ type Service interface {
 }
 
 func New(storage stats_entry_storage.Storage) *service {
-	return new(service)
+	s := new(service)
+	s.storage = storage
+	return s
 }
 
 func (s *service) List() ([]entry.Entry, error) {
-	return nil, nil
+	return s.storage.FindEntrys()
 }
 
 func (s *service) Create(entry *entry.Entry) (*entry.Entry, error) {
-	return nil, nil
+	err := s.storage.CreateEntry(entry)
+	if err != nil {
+		return nil, err
+	}
+	return entry, nil
 }
