@@ -12,6 +12,7 @@
   <script src="/js/controllers.js"></script>
   <script src="/js/filters.js"></script>
   <script src="/js/services.js"></script>
+  <script src="/js/directives.js"></script>
 </head>
 <body>
 <h1>Stats</h1>
@@ -19,7 +20,7 @@
 <form name="createEntryForm" ng-submit="submit()" ng-controller="EntryCreateCtrl">
   <fieldset>
     <label for="value">Value</label>
-    <input type="number" id="value" name="value" ng-model="entry.value" ng-model-options="{ updateOn: 'blur' }" min="1" max="255" required=""/>
+    <input type="number" id="value" name="value" ng-model="entry.value" ng-model-options="{ updateOn: 'blur' }" required=""/>
   </fieldset>
 
   <input type="submit" value="add value"/>
@@ -28,7 +29,7 @@
 
 <ul class="entries" ng-controller="EntryListCtrl">
   <li ng-repeat="entry in entries">
-    {{entry.time}} {{entry.value}}
+    {{entry.timestamp | timestampToDate}} {{entry.value}}
   </li>
 </ul>
 
