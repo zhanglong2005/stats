@@ -1,6 +1,8 @@
 package service
 
 import (
+	"time"
+
 	"github.com/bborbe/stats/entry"
 	stats_entry_storage "github.com/bborbe/stats/entry/storage"
 )
@@ -24,10 +26,12 @@ func (s *service) List() ([]entry.Entry, error) {
 	return s.storage.FindEntrys()
 }
 
-func (s *service) Create(entry *entry.Entry) (*entry.Entry, error) {
-	err := s.storage.CreateEntry(entry)
+func (s *service) Create(e *entry.Entry) (*entry.Entry, error) {
+	timestamp := time.Now().UnixNano()
+	e = &entry.Entry{Value: e.Value, Timestamp: timestamp}
+	err := s.storage.CreateEntry(e)
 	if err != nil {
 		return nil, err
 	}
-	return entry, nil
+	return e, nil
 }
