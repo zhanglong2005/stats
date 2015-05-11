@@ -1,10 +1,18 @@
 'use strict';
 
-var statsServices = angular.module('statsServices', ['ngResource']);
+var statscacheServices = angular.module('statsServices', ['ngResource']);
 
-statsServices.factory('User', ['$resource',
+statscacheServices.factory('Entry', ['$resource',
 	function ($resource) {
-		return $resource(':userId.json', {}, {
-			query: {method: 'GET', params: {userId: 'users'}, isArray: true}
+		return $resource('/entry/:Id', {}, {
+			query: {
+				method: 'GET', params: {}, isArray: true
+			},
+			create: {
+				method: 'POST', params: {}
+			},
+			delete: {
+				method: 'DELETE', params: {}
+			}
 		});
 	}]);

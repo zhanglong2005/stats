@@ -2,6 +2,6 @@
 
 var statsControllers = angular.module('statsControllers', []);
 
-statsControllers.controller('UserListCtrl', ['$scope', 'User', function($scope, User) {
-	$scope.users = User.query();
+statsControllers.controller('EntryListCtrl', ['$scope', 'Stats', function($scope, Stats) {
+	$scope.entries = Entry.query();
 }]);

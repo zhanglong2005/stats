@@ -14,13 +14,12 @@
 	<script src="/js/services.js"></script>
 </head>
 <body>
-<h1>Hello, {{ yourName }}!</h1>
-<input type="text" ng-model="yourName" placeholder="Enter a name here">
+<h1>Stats</h1>
+<input type="text" ng-model="value" placeholder="Enter current value here">
 
-
-<ul class="users" ng-controller="UserListCtrl">
-	<li ng-repeat="user in users">
-		{{user.firstName}} {{user.lastName}}
+<ul class="entries" ng-controller="EntryListCtrl">
+	<li ng-repeat="entry in entries">
+		{{entry.time}} {{entry.value}}
 	</li>
 </ul>
 
