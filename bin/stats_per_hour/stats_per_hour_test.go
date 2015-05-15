@@ -31,7 +31,7 @@ func TestPrintEntries(t *testing.T) {
 	if err = AssertThat(writer.Content(), NotNilValue()); err != nil {
 		t.Fatal(err)
 	}
-	if err = AssertThat(string(writer.Content()), Is("1970-01-01 02:00:00          100       100.00/h\n")); err != nil {
+	if err = AssertThat(string(writer.Content()), Is("1970-01-01 02:00:00          200          100       100.00/h\n")); err != nil {
 		t.Fatal(err)
 	}
 

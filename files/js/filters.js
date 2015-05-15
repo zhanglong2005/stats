@@ -14,3 +14,15 @@ statsFilters.filter('timestampToDate', function() {
 		return d.toISOString().slice(0,19).replace("T"," ");
 	};
 });
+
+statsFilters.filter('toFixed', function() {
+	return function(input,l) {
+		return input.toFixed(l);
+	};
+});
+
+statsFilters.filter('reverse', function() {
+	return function(items) {
+		return items.slice().reverse();
+	};
+});

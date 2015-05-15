@@ -14,10 +14,11 @@
   <script src="/js/services.js"></script>
   <script src="/js/directives.js"></script>
 </head>
-<body>
+<body ng-controller="EntryCtrl">
 <h1>Stats</h1>
 
-<form name="createEntryForm" ng-submit="submit()" ng-controller="EntryCreateCtrl">
+
+<form name="createEntryForm" ng-submit="submit()">
   <fieldset>
     <label for="value">Value</label>
     <input type="number" id="value" name="value" ng-model="entry.value" ng-model-options="{ updateOn: 'blur' }" required=""/>
@@ -27,11 +28,20 @@
 </form>
 
 
-<ul class="entries" ng-controller="EntryListCtrl">
-  <li ng-repeat="entry in entries">
-    {{entry.timestamp | timestampToDate}} {{entry.value}}
-  </li>
-</ul>
+<table class="entries">
+  <tr>
+    <th>Date</th>
+    <th>Total</th>
+    <th>Diff</th>
+    <th>Per Hour</th>
+  </tr>
+  <tr ng-repeat="entry in stats | reverse">
+    <td>{{entry.timestamp | timestampToDate}}</td>
+    <td class="right">{{entry.value}}</td>
+    <td class="right">{{entry.diff}}</td>
+    <td class="right">{{entry.perhour | toFixed:2}}</td>
+  </tr>
+</table>
 
 </body>
 </html>
