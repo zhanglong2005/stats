@@ -31,15 +31,17 @@
 <table class="entries">
   <tr>
     <th>Date</th>
-    <th>Total</th>
-    <th>Diff</th>
-    <th>Per Hour</th>
+    <th>Value</th>
+    <th>TimeDiff</th>
+    <th>ValueDiff</th>
+    <th>PerHour</th>
   </tr>
   <tr ng-repeat="entry in stats | reverse">
     <td>{{entry.timestamp | timestampToDate}}</td>
     <td class="right">{{entry.value}}</td>
-    <td class="right">{{entry.diff}}</td>
-    <td class="right">{{entry.perhour | toFixed:2}}</td>
+    <td class="right">{{entry.timeDiff | timeToString:2}}</td>
+    <td class="right">{{entry.valueDiff}}</td>
+    <td class="right">{{entry.diffPerHour | toFixed:2}}</td>
   </tr>
 </table>
 
