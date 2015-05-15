@@ -11,7 +11,7 @@ var Hour                 = 60 * Minute
 
 statsControllers.controller('EntryCtrl', ['$scope', 'Entry', function ($scope, Entry) {
   $scope.stats = [];
-  $scope.entries = Entry.query({}, function (result) {
+  var statsFunc = function (result) {
     if (result) {
       var stats = [];
       var last;
@@ -31,13 +31,13 @@ statsControllers.controller('EntryCtrl', ['$scope', 'Entry', function ($scope, E
       }, stats);
       $scope.stats = stats;
     }
-  });
+  };
+  $scope.entries = Entry.query({}, statsFunc);
   $scope.entry = {};
   $scope.submit = function () {
     Entry.create($scope.entry);
     $scope.entry = {};
-    $scope.entries = Entry.query();
+    $scope.entries = Entry.query({}, statsFunc);
   };
-
 }]);
 
