@@ -36,11 +36,11 @@ statsControllers.controller('EntryCtrl', ['$scope', 'Entry', function ($scope, E
       $scope.stats = stats;
     }
   };
-  $scope.entries = Entry.query({}, statsFunc);
+  $scope.entries = Entry.query({'limit':10}, statsFunc);
   $scope.entry = {};
   $scope.submit = function () {
     Entry.create($scope.entry, function () {
-      $scope.entries = Entry.query({}, statsFunc);
+      $scope.entries = Entry.query({'limit':10}, statsFunc);
       $scope.entry = {};
     });
   };

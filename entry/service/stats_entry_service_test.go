@@ -24,7 +24,7 @@ func TestCreate(t *testing.T) {
 	if err = storage.Truncate(); err != nil {
 		t.Fatal(err)
 	}
-	entries, err := storage.FindEntrys()
+	entries, err := storage.FindEntries()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -41,7 +41,7 @@ func TestCreate(t *testing.T) {
 	if err = AssertThat(entry.Value, Is(1337)); err != nil {
 		t.Fatal(err)
 	}
-	entries, err = storage.FindEntrys()
+	entries, err = storage.FindEntries()
 	if err != nil {
 		t.Fatal(err)
 	}

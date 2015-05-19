@@ -13,6 +13,7 @@ type service struct {
 
 type Service interface {
 	List() ([]entry.Entry, error)
+	ListLimited(limit int) ([]entry.Entry, error)
 	Create(entry *entry.Entry) (*entry.Entry, error)
 }
 
@@ -23,7 +24,11 @@ func New(storage stats_entry_storage.Storage) *service {
 }
 
 func (s *service) List() ([]entry.Entry, error) {
-	return s.storage.FindEntrys()
+	return s.storage.FindEntries()
+}
+
+func (s *service) ListLimited(limit int) ([]entry.Entry, error) {
+	return s.storage.FindLatestEntries(limit)
 }
 
 func (s *service) Create(e *entry.Entry) (*entry.Entry, error) {

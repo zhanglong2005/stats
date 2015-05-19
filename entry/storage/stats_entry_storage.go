@@ -7,7 +7,8 @@ import (
 )
 
 type Storage interface {
-	FindEntrys() ([]entry.Entry, error)
+	FindEntries() ([]entry.Entry, error)
+	FindLatestEntries(limit int) ([]entry.Entry, error)
 	CreateEntry(entry *entry.Entry) error
 	GetEntry(id int) (*entry.Entry, error)
 	DeleteEntry(id int) (*entry.Entry, error)
@@ -56,13 +57,23 @@ func (s *storage) getDb() (*gorm.DB, error) {
 	return s.db, nil
 }
 
-func (s *storage) FindEntrys() ([]entry.Entry, error) {
+func (s *storage) FindEntries() ([]entry.Entry, error) {
 	db, err := s.getDb()
 	if err != nil {
 		return nil, err
 	}
 	entrys := &[]entry.Entry{}
-	query := db.Find(entrys)
+	query := db.Order("timestamp desc").Find(entrys)
+	return *entrys, query.Error
+}
+
+func (s *storage) FindLatestEntries(limit int) ([]entry.Entry, error) {
+	db, err := s.getDb()
+	if err != nil {
+		return nil, err
+	}
+	entrys := &[]entry.Entry{}
+	query := db.Order("timestamp desc").Limit(limit).Find(entrys)
 	return *entrys, query.Error
 }
 

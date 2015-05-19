@@ -61,7 +61,7 @@ func readEntriesFromDb(dbPath string) ([]stats_entry.Entry, error) {
 		return nil, err
 	}
 	storage := stats_entry_storage.New(dbPath, false)
-	if entries, err = storage.FindEntrys(); err != nil {
+	if entries, err = storage.FindEntries(); err != nil {
 		return nil, err
 	}
 	return entries, nil
