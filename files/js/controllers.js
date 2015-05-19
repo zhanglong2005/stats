@@ -4,6 +4,9 @@ var statsControllers = angular.module('statsControllers', []);
 
 statsControllers.controller('EntryCtrl', ['$scope', 'Entry', function ($scope, Entry) {
 
+
+  var limit = 20;
+
   var Nanosecond = 1;
   var Microsecond = 1000 * Nanosecond;
   var Millisecond = 1000 * Microsecond;
@@ -36,11 +39,11 @@ statsControllers.controller('EntryCtrl', ['$scope', 'Entry', function ($scope, E
       $scope.stats = stats;
     }
   };
-  $scope.entries = Entry.query({'limit':10}, statsFunc);
+  $scope.entries = Entry.query({'limit': limit}, statsFunc);
   $scope.entry = {};
   $scope.submit = function () {
     Entry.create($scope.entry, function () {
-      $scope.entries = Entry.query({'limit':10}, statsFunc);
+      $scope.entries = Entry.query({'limit': limit}, statsFunc);
       $scope.entry = {};
     });
   };
