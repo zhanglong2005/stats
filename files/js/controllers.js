@@ -2,7 +2,7 @@
 
 angular.module('statsControllers', []);
 
-angular.module('statsControllers').controller('EntryCtrl', ['$scope', 'Stats', function ($scope, Stats) {
+angular.module('statsControllers').controller('EntryCtrl', ['$scope', 'Entry', 'Stats', function ($scope, Entry, Stats) {
   var limit = 20;
   $scope.stats = [];
   Stats.list({'limit': limit}).then(function (stats) {
