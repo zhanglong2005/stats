@@ -31,7 +31,7 @@ angular.module('statsServices').factory('Stats', ['$q', 'Entry',
     var stats = {};
     stats.list = function (param) {
       var deferred = $q.defer();
-      var statsFunc = function (result) {
+      Entry.query(param, function (result) {
         if (result) {
           var stats = [];
           var last;
@@ -54,8 +54,7 @@ angular.module('statsServices').factory('Stats', ['$q', 'Entry',
           }, stats);
           deferred.resolve(stats);
         }
-      };
-      Entry.query(param, statsFunc);
+      });
       return deferred.promise;
     };
     return stats;

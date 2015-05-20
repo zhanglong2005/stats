@@ -17,12 +17,12 @@ angular.module('statsFilters').filter('timestampToDate', function () {
 
 angular.module('statsFilters').filter('timeToString', function () {
   return function (input, l) {
-    var Nanosecond = 1
-    var Microsecond = 1000 * Nanosecond
-    var Millisecond = 1000 * Microsecond
-    var Second = 1000 * Millisecond
-    var Minute = 60 * Second
-    var Hour = 60 * Minute
+    var Nanosecond = 1;
+    var Microsecond = 1000 * Nanosecond;
+    var Millisecond = 1000 * Microsecond;
+    var Second = 1000 * Millisecond;
+    var Minute = 60 * Second;
+    var Hour = 60 * Minute;
 
     var format = function (value) {
       if (l) {
@@ -63,7 +63,7 @@ angular.module('statsFilters').filter('toFixed', function () {
 angular.module('statsFilters').filter('reverse', function () {
   return function (items) {
     if (angular.isArray(items)) {
-      return items.slice().reverse()
+      return items.slice().reverse();
     } else {
       return items;
     }
