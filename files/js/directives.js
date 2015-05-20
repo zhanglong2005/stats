@@ -1,4 +1,4 @@
 'use strict';
 
-var statsDirectives = angular.module('statsDirectives', []);
+angular.module('statsDirectives', []);
 

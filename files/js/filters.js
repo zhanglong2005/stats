@@ -1,21 +1,21 @@
 'use strict';
 
-var statsFilters = angular.module('statsFilters', []);
+angular.module('statsFilters', []);
 
-statsFilters.filter('checkmark', function () {
+angular.module('statsFilters').filter('checkmark', function () {
   return function (input) {
     return input ? '\u2713' : '\u2718';
   };
 });
 
-statsFilters.filter('timestampToDate', function () {
+angular.module('statsFilters').filter('timestampToDate', function () {
   return function (input) {
     var d = new Date(input / 1000 / 1000);
     return d.toISOString().slice(0, 19).replace("T", " ");
   };
 });
 
-statsFilters.filter('timeToString', function () {
+angular.module('statsFilters').filter('timeToString', function () {
   return function (input, l) {
     var Nanosecond = 1
     var Microsecond = 1000 * Nanosecond
@@ -24,7 +24,7 @@ statsFilters.filter('timeToString', function () {
     var Minute = 60 * Second
     var Hour = 60 * Minute
 
-    var format = function(value) {
+    var format = function (value) {
       if (l) {
         return value.toFixed(l);
       }
@@ -54,14 +54,18 @@ statsFilters.filter('timeToString', function () {
   };
 });
 
-statsFilters.filter('toFixed', function () {
+angular.module('statsFilters').filter('toFixed', function () {
   return function (input, l) {
     return input.toFixed(l);
   };
 });
 
-statsFilters.filter('reverse', function () {
+angular.module('statsFilters').filter('reverse', function () {
   return function (items) {
-    return items.slice().reverse();
+    if (angular.isArray(items)) {
+      return items.slice().reverse()
+    } else {
+      return items;
+    }
   };
 });
