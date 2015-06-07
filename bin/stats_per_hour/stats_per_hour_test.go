@@ -5,6 +5,8 @@ import (
 
 	"time"
 
+	"fmt"
+
 	. "github.com/bborbe/assert"
 	io_mock "github.com/bborbe/io/mock"
 	stats_entry "github.com/bborbe/stats/entry"
@@ -31,7 +33,7 @@ func TestPrintEntries(t *testing.T) {
 	if err = AssertThat(writer.Content(), NotNilValue()); err != nil {
 		t.Fatal(err)
 	}
-	if err = AssertThat(string(writer.Content()), Is("1970-01-01 02:00:00          200          100       100.00/h\n")); err != nil {
+	if err = AssertThat(string(writer.Content()), Is(fmt.Sprintf("%s          200          100       100.00/h\n", time.Unix(0, int64(time.Hour)).Format("2006-01-02 15:04:05")))); err != nil {
 		t.Fatal(err)
 	}
 
